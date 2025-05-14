@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaho - Restaurante Chino</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6000c8',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Poppins', sans-serif;
+padding-top: 52px;
+}
+.hero-section {
+background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://readdy.ai/api/search-image?query=Delicious%20Chinese%20food%20display%20with%20various%20dishes%20including%20dumplings%2C%20noodles%2C%20and%20stir-fry%20arranged%20beautifully%20on%20a%20dark%20wooden%20table%20with%20soft%20ambient%20lighting%2C%20steam%20rising%20from%20hot%20dishes%2C%20garnished%20with%20fresh%20herbs%2C%20chopsticks%20visible%2C%20restaurant%20atmosphere%2C%20professional%20food%20photography%20style&width=1200&height=800&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.fade-in {
+animation: fadeIn 0.8s ease-in-out;
+}
+.slide-up {
+animation: slideUp 0.8s ease-in-out;
+}
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+@keyframes slideUp {
+from { transform: translateY(30px); opacity: 0; }
+to { transform: translateY(0); opacity: 1; }
+}
+.language-toggle input:checked + .toggle-slider {
+background-color: #6000c8;
+}
+.language-toggle input:checked + .toggle-slider:before {
+transform: translateX(26px);
+}
+.gallery-scroll {
+animation: scroll 30s linear infinite;
+}
+@keyframes scroll {
+0% { transform: translateX(0); }
+100% { transform: translateX(-100%); }
+}
+.menu-item:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 15px -3px rgba(96, 0, 200, 0.1), 0 4px 6px -2px rgba(96, 0, 200, 0.05);
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -4px;
+left: 0;
+background-color: #6000c8;
+transition: width 0.3s ease;
+}
+.nav-link:hover::after, .nav-link.active::after {
+width: 100%;
+}
+.custom-checkbox {
+appearance: none;
+-webkit-appearance: none;
+width: 18px;
+height: 18px;
+border: 2px solid #6000c8;
+border-radius: 4px;
+outline: none;
+cursor: pointer;
+position: relative;
+}
+.custom-checkbox:checked {
+background-color: #6000c8;
+}
+.custom-checkbox:checked::before {
+content: '✓';
+position: absolute;
+color: white;
+font-size: 12px;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+.mobile-menu {
+transform: translateY(-100%);
+transition: transform 0.3s ease-in-out;
+}
+.mobile-menu.active {
+transform: translateY(0);
+}
+</style>
+</head>
+<body class="bg-white text-gray-800">
+<!-- Header -->
+<header class="fixed w-full bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-2 flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-3xl font-['Pacifico'] text-black mr-2">Yaho</div>
+</div>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center space-x-8">
+<a href="#home" class="nav-link text-gray-800 hover:text-primary transition-all">Inicio / Home</a>
+<a href="#menu" class="nav-link text-gray-800 hover:text-primary transition-all">Menú / Menu</a>
+<a href="#contact" class="nav-link text-gray-800 hover:text-primary transition-all">Contacto / Contact</a>
+</nav>
+<!-- Language Toggle -->
+<div class="hidden md:flex items-center language-toggle">
+<span class="mr-2 text-sm font-medium">ES</span>
+<label class="relative inline-block w-12 h-6">
+<input type="checkbox" class="opacity-0 w-0 h-0" id="language-toggle">
+<span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
+</label>
+<span class="ml-2 text-sm font-medium">EN</span>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
+<i class="ri-menu-line text-2xl text-primary"></i>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div class="mobile-menu absolute top-full left-0 w-full bg-white shadow-md md:hidden" id="mobile-menu">
+<div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+<a href="#home" class="text-gray-800 hover:text-primary py-2 transition-all">Inicio / Home</a>
+<a href="#menu" class="text-gray-800 hover:text-primary py-2 transition-all">Menú / Menu</a>
+<a href="#contact" class="text-gray-800 hover:text-primary py-2 transition-all">Contacto / Contact</a>
+<div class="flex items-center language-toggle py-2">
+<span class="mr-2 text-sm font-medium">ES</span>
+<label class="relative inline-block w-12 h-6">
+<input type="checkbox" class="opacity-0 w-0 h-0" id="mobile-language-toggle">
+<span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
+</label>
+<span class="ml-2 text-sm font-medium">EN</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section id="home" class="hero-section min-h-[50vh] flex items-center justify-center text-white pt-16">
+<div class="container mx-auto px-4 text-center py-16">
+<div class="fade-in max-w-3xl mx-auto">
+<h1 class="text-3xl md:text-5xl font-bold mb-4 language-es">La auténtica cocina china en Mazarrón</h1>
+<h1 class="text-3xl md:text-5xl font-bold mb-4 language-en hidden">Authentic Chinese cuisine in Mazarrón</h1>
+<p class="text-lg md:text-xl mb-8 language-es">Sabores tradicionales con ingredientes frescos y de calidad</p>
+<p class="text-lg md:text-xl mb-8 language-en hidden">Traditional flavors with fresh, quality ingredients</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a href="tel:868080299" class="bg-primary hover:bg-opacity-90 text-white font-medium py-3 px-8 !rounded-button transition-all duration-300 whitespace-nowrap">
+<span class="language-es">Llamar ahora</span>
+<span class="language-en hidden">Call now</span>
+</a>
+<a href="#menu" class="bg-white hover:bg-gray-100 text-primary font-medium py-3 px-8 !rounded-button transition-all duration-300 whitespace-nowrap">
+<span class="language-es">Ver menú</span>
+<span class="language-en hidden">See menu</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Menu Section -->
+<section id="menu" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center mb-12">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">
+<span class="language-es">Nuestro Menú</span>
+<span class="language-en hidden">Our Menu</span>
+</h2>
+<p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+<span class="language-es">Descubre nuestra selección de platos tradicionales chinos</span>
+<span class="language-en hidden">Discover our selection of traditional Chinese dishes</span>
+</p>
+<!-- Menu Language Toggle -->
+<div class="inline-flex items-center language-toggle mb-8">
+<span class="mr-2 text-sm font-medium">ES</span>
+<label class="relative inline-block w-12 h-6">
+<input type="checkbox" class="opacity-0 w-0 h-0" id="menu-language-toggle">
+<span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
+</label>
+<span class="ml-2 text-sm font-medium">EN</span>
+</div>
+</div>
+<!-- Menu Filter Buttons -->
+<div class="flex flex-wrap justify-center gap-3 mb-8">
+<button class="filter-btn active bg-primary text-white px-6 py-2 !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-all" data-category="all">
+<span class="language-es">Todos</span>
+<span class="language-en hidden">All</span>
+</button>
+<button class="filter-btn bg-white text-primary border border-primary px-6 py-2 !rounded-button whitespace-nowrap hover:bg-primary hover:text-white transition-all" data-category="appetizers">
+<span class="language-es">Entrantes</span>
+<span class="language-en hidden">Appetizers</span>
+</button>
+<button class="filter-btn bg-white text-primary border border-primary px-6 py-2 !rounded-button whitespace-nowrap hover:bg-primary hover:text-white transition-all" data-category="main">
+<span class="language-es">Principales</span>
+<span class="language-en hidden">Main Dishes</span>
+</button>
+<button class="filter-btn bg-white text-primary border border-primary px-6 py-2 !rounded-button whitespace-nowrap hover:bg-primary hover:text-white transition-all" data-category="rice">
+<span class="language-es">Arroces y Fideos</span>
+<span class="language-en hidden">Rice & Noodles</span>
+</button>
+</div>
+<!-- Menu Items Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Appetizers -->
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">1.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Bola de Gambas de Patatas</span>
+                    <span class="language-en hidden">Prawn Ball Based Potatoes</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">6 unidades</span>
+                    <span class="language-en hidden">6 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">6,25 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">2.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Pincho de Mongolia (cerdo)</span>
+                    <span class="language-en hidden">Mongolia Skewer (pork)</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">2 unidades</span>
+                    <span class="language-en hidden">2 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">3,25 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">3.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Croqueta de Gambas Marisco</span>
+                    <span class="language-en hidden">Prawn Croquettes Seafood</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">4 unidades</span>
+                    <span class="language-en hidden">4 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">7,95 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">4.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Pincho de Pollo</span>
+                    <span class="language-en hidden">Chicken Skewer</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">2 unidades</span>
+                    <span class="language-en hidden">2 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">3,75 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">5.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Rollito Vietnamita</span>
+                    <span class="language-en hidden">Vietnamese Roll</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">2 unidades</span>
+                    <span class="language-en hidden">2 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">3,50 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">6.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Rollito de Filipino</span>
+                    <span class="language-en hidden">Philippine Roll</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">8 unidades</span>
+                    <span class="language-en hidden">8 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">4,75 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">7.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Rollito de Primavera</span>
+                    <span class="language-en hidden">Spring Roll</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">1 unidad</span>
+                    <span class="language-en hidden">1 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">1,45 €</p>
+            </div>
+
+            <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+                <span class="text-lg font-semibold text-gray-700 mr-2">8.</span>
+                <h3 class="text-xl font-semibold mb-3 inline">
+                    <span class="language-es">Rollito de Pato</span>
+                    <span class="language-en hidden">Duck Roll</span>
+                </h3>
+                <p class="text-gray-600 mb-4 ml-6">
+                    <span class="language-es">8 unidades</span>
+                    <span class="language-en hidden">8 pcs.</span>
+                </p>
+                <p class="text-primary font-semibold ml-6">4,95 €</p>
+            </div>
+  <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">9.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Algas Fritas</span>
+        <span class="language-en hidden">Fried Seaweed</span>
+    </h3>
+    <p class="text-primary font-semibold ml-6">4,25 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">10.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Gambas Fritas</span>
+        <span class="language-en hidden">Fried Prawns</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">1 ración</span>
+        <span class="language-en hidden">1 ration</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">6,95 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">11.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Queso Frito</span>
+        <span class="language-en hidden">Fried Cheese</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">6 unidades</span>
+        <span class="language-en hidden">6 pcs.</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">5,25 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">12.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Gyoza (Empanadilla Plancha)</span>
+        <span class="language-en hidden">Gyoza (Grilled Pie)</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">6 unidades</span>
+        <span class="language-en hidden">6 pcs.</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">4,95 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">13.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Dim - Sum Mixto (vapor)</span>
+        <span class="language-en hidden">Mixed Dim-Sum (steamed)</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">(Mixto Dim-Sum)</span>
+        <span class="language-en hidden">(Mixed Dim-Sum)</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">3,50 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">14.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Pan de Leche Frito</span>
+        <span class="language-en hidden">Fried Chinese Bun</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">2 unidades</span>
+        <span class="language-en hidden">2 pcs.</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">1,60 €</p>
+</div>
+
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">15.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Vieira Frita</span>
+        <span class="language-en hidden">Fried Scallops</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">2 unidad</span>
+        <span class="language-en hidden">2 pcs.</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">5,95 €</p>
+</div>
+  <div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="tapas">
+    <span class="text-lg font-semibold text-gray-700 mr-2">16.</span>
+    <h3 class="text-xl font-semibold mb-3 inline">
+        <span class="language-es">Tartar Atún Rojo</span>
+        <span class="language-en hidden">Red Tuna Tartar</span>
+    </h3>
+    <p class="text-gray-600 mb-4 ml-6">
+        <span class="language-es">(Red Tuna tartar)</span>
+        <span class="language-en hidden">(Red Tuna tartar)</span>
+    </p>
+    <p class="text-primary font-semibold ml-6">7,25 €</p>
+</div>
+<!-- Main Dishes -->
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="main">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Pollo Kung Pao</span>
+<span class="language-en hidden">Kung Pao Chicken</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Pollo salteado con cacahuetes y verduras en salsa picante</span>
+<span class="language-en hidden">Stir-fried chicken with peanuts and vegetables in spicy sauce</span>
+</p>
+<p class="text-primary font-semibold">11.50€</p>
+</div>
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="main">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Cerdo Agridulce</span>
+<span class="language-en hidden">Sweet and Sour Pork</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Cerdo crujiente con pimientos y piña en salsa agridulce</span>
+<span class="language-en hidden">Crispy pork with peppers and pineapple in sweet and sour sauce</span>
+</p>
+<p class="text-primary font-semibold">10.90€</p>
+</div>
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="main">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Ternera con Brócoli</span>
+<span class="language-en hidden">Beef with Broccoli</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Ternera tierna salteada con brócoli en salsa de ostras</span>
+<span class="language-en hidden">Tender beef stir-fried with broccoli in oyster sauce</span>
+</p>
+<p class="text-primary font-semibold">12.50€</p>
+</div>
+<!-- Rice and Noodles -->
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="rice">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Arroz Tres Delicias</span>
+<span class="language-en hidden">Special Fried Rice</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Arroz salteado con gambas, huevo y verduras</span>
+<span class="language-en hidden">Fried rice with shrimp, egg and vegetables</span>
+</p>
+<p class="text-primary font-semibold">8.90€</p>
+</div>
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="rice">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Fideos Lo Mein con Pollo</span>
+<span class="language-en hidden">Chicken Lo Mein</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Fideos salteados con pollo y verduras en salsa especial</span>
+<span class="language-en hidden">Stir-fried noodles with chicken and vegetables in special sauce</span>
+</p>
+<p class="text-primary font-semibold">9.90€</p>
+</div>
+<div class="menu-item bg-white p-6 rounded shadow-md transition-all duration-300" data-category="rice">
+<h3 class="text-xl font-semibold mb-3">
+<span class="language-es">Tallarines de Arroz con Ternera</span>
+<span class="language-en hidden">Beef Chow Fun</span>
+</h3>
+<p class="text-gray-600 mb-4">
+<span class="language-es">Tallarines de arroz salteados con ternera y brotes de soja</span>
+<span class="language-en hidden">Stir-fried rice noodles with beef and bean sprouts</span>
+</p>
+<p class="text-primary font-semibold">11.90€</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="py-16 bg-white overflow-hidden">
+<div class="container mx-auto px-4 mb-10 text-center">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">
+<span class="language-es">Nuestra Galería</span>
+<span class="language-en hidden">Our Gallery</span>
+</h2>
+<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+<span class="language-es">Descubre la experiencia Yaho a través de nuestras imágenes</span>
+<span class="language-en hidden">Discover the Yaho experience through our images</span>
+</p>
+</div>
+<div class="relative w-full">
+<div class="flex gallery-scroll" style="width: 200%">
+<!-- First set of images -->
+<div class="flex-none w-1/2 flex space-x-4 px-4">
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Authentic%20Chinese%20restaurant%20interior%20with%20traditional%20decorations%2C%20red%20lanterns%20hanging%20from%20ceiling%2C%20wooden%20tables%20with%20elegant%20place%20settings%2C%20soft%20ambient%20lighting%20creating%20a%20warm%20atmosphere%2C%20customers%20enjoying%20meals%2C%20oriental%20art%20on%20walls%2C%20professional%20interior%20photography&width=600&height=400&seq=2&orientation=landscape" alt="Restaurant interior" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Close-up%20of%20beautifully%20plated%20Chinese%20dim%20sum%20assortment%20on%20traditional%20ceramic%20plates%2C%20including%20dumplings%2C%20bao%20buns%2C%20and%20spring%20rolls%2C%20garnished%20with%20fresh%20herbs%2C%20steam%20rising%2C%20chopsticks%20visible%2C%20professional%20food%20photography%20with%20soft%20natural%20lighting&width=600&height=400&seq=3&orientation=landscape" alt="Dim sum assortment" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Chinese%20chef%20in%20professional%20kitchen%20stir-frying%20in%20wok%20with%20dramatic%20flames%2C%20wearing%20chef%20uniform%2C%20focused%20expression%2C%20steam%20rising%2C%20vegetables%20and%20meat%20being%20tossed%20in%20air%2C%20professional%20kitchen%20equipment%20visible%20in%20background%2C%20dramatic%20lighting%20highlighting%20cooking%20action&width=600&height=400&seq=4&orientation=landscape" alt="Chef cooking" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+</div>
+<!-- Duplicate set for infinite scroll -->
+<div class="flex-none w-1/2 flex space-x-4 px-4">
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Authentic%20Chinese%20restaurant%20interior%20with%20traditional%20decorations%2C%20red%20lanterns%20hanging%20from%20ceiling%2C%20wooden%20tables%20with%20elegant%20place%20settings%2C%20soft%20ambient%20lighting%20creating%20a%20warm%20atmosphere%2C%20customers%20enjoying%20meals%2C%20oriental%20art%20on%20walls%2C%20professional%20interior%20photography&width=600&height=400&seq=2&orientation=landscape" alt="Restaurant interior" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Close-up%20of%20beautifully%20plated%20Chinese%20dim%20sum%20assortment%20on%20traditional%20ceramic%20plates%2C%20including%20dumplings%2C%20bao%20buns%2C%20and%20spring%20rolls%2C%20garnished%20with%20fresh%20herbs%2C%20steam%20rising%2C%20chopsticks%20visible%2C%20professional%20food%20photography%20with%20soft%20natural%20lighting&width=600&height=400&seq=3&orientation=landscape" alt="Dim sum assortment" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+<div class="w-full sm:w-1/2 md:w-1/3 flex-none">
+<img src="https://readdy.ai/api/search-image?query=Chinese%20chef%20in%20professional%20kitchen%20stir-frying%20in%20wok%20with%20dramatic%20flames%2C%20wearing%20chef%20uniform%2C%20focused%20expression%2C%20steam%20rising%2C%20vegetables%20and%20meat%20being%20tossed%20in%20air%2C%20professional%20kitchen%20equipment%20visible%20in%20background%2C%20dramatic%20lighting%20highlighting%20cooking%20action&width=600&height=400&seq=4&orientation=landscape" alt="Chef cooking" class="w-full h-64 object-cover rounded shadow-lg">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center mb-12">
+<h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">
+<span class="language-es">Contacto</span>
+<span class="language-en hidden">Contact</span>
+</h2>
+<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+<span class="language-es">Visítanos o haz tu pedido por teléfono</span>
+<span class="language-en hidden">Visit us or place your order by phone</span>
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+<div class="slide-up">
+<div class="bg-white rounded-lg shadow-md p-8">
+<div class="flex items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-map-pin-line text-xl text-primary"></i>
+</div>
+<div>
+<h3 class="font-semibold text-xl mb-2">
+<span class="language-es">Dirección</span>
+<span class="language-en hidden">Address</span>
+</h3>
+<p class="text-gray-700">Av. Dr. Meca, 109, 30860 Puerto de Mazarrón, Murcia</p>
+</div>
+</div>
+<div class="flex items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-phone-line text-xl text-primary"></i>
+</div>
+<div>
+<h3 class="font-semibold text-xl mb-2">
+<span class="language-es">Teléfono</span>
+<span class="language-en hidden">Phone</span>
+</h3>
+<a href="tel:868080299" class="text-primary hover:underline">868 08 02 99</a>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-time-line text-xl text-primary"></i>
+</div>
+<div>
+<h3 class="font-semibold text-xl mb-2">
+<span class="language-es">Horario</span>
+<span class="language-en hidden">Opening Hours</span>
+</h3>
+<div class="space-y-1">
+<p class="text-gray-700">
+<span class="language-es">Lunes - Viernes: 12:00 - 16:00, 19:00 - 23:30</span>
+<span class="language-en hidden">Monday - Friday: 12:00 - 16:00, 19:00 - 23:30</span>
+</p>
+<p class="text-gray-700">
+<span class="language-es">Sábado - Domingo: 12:00 - 23:30</span>
+<span class="language-en hidden">Saturday - Sunday: 12:00 - 23:30</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-up" style="animation-delay: 0.2s;">
+<div class="bg-white rounded-lg shadow-md overflow-hidden h-80">
+<div class="h-full w-full bg-cover bg-center" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png')"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-10">
+<div class="container mx-auto px-4">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<div class="mb-6 md:mb-0">
+<div class="text-3xl font-['Pacifico'] text-white mb-2">Yaho</div>
+<p class="text-gray-400">
+<span class="language-es">Restaurante de comida china auténtica</span>
+<span class="language-en hidden">Authentic Chinese restaurant</span>
+</p>
+</div>
+<div class="flex flex-col items-center md:items-end">
+<div class="flex space-x-4 mb-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-primary transition-all">
+<i class="ri-facebook-fill text-white"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-primary transition-all">
+<i class="ri-instagram-line text-white"></i>
+</a>
+<a href="tel:868080299" class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-10 rounded-full hover:bg-primary transition-all">
+<i class="ri-phone-line text-white"></i>
+</a>
+</div>
+<p class="text-gray-400 text-sm">
+<span class="language-es">© 2025 Restaurante Yaho. Todos los derechos reservados.</span>
+<span class="language-en hidden">© 2025 Yaho Restaurant. All rights reserved.</span>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Menu filter functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const menuItems = document.querySelectorAll('.menu-item');
+filterBtns.forEach(btn => {
+btn.addEventListener('click', () => {
+const category = btn.getAttribute('data-category');
+// Update active button state
+filterBtns.forEach(b => b.classList.remove('active', 'bg-primary', 'text-white'));
+filterBtns.forEach(b => b.classList.add('bg-white', 'text-primary', 'border', 'border-primary'));
+btn.classList.add('active', 'bg-primary', 'text-white');
+btn.classList.remove('bg-white', 'text-primary', 'border', 'border-primary');
+// Filter menu items
+menuItems.forEach(item => {
+if (category === 'all' || item.getAttribute('data-category') === category) {
+item.style.display = 'block';
+item.classList.add('fade-in');
+} else {
+item.style.display = 'none';
+}
+});
+});
+});
+// Mobile menu toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', function() {
+mobileMenu.classList.toggle('active');
+if (mobileMenu.classList.contains('active')) {
+mobileMenuButton.innerHTML = '<i class="ri-close-line text-2xl text-primary"></i>';
+} else {
+mobileMenuButton.innerHTML = '<i class="ri-menu-line text-2xl text-primary"></i>';
+}
+});
+// Close mobile menu when clicking on a link
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+link.addEventListener('click', function() {
+mobileMenu.classList.remove('active');
+mobileMenuButton.innerHTML = '<i class="ri-menu-line text-2xl text-primary"></i>';
+});
+});
+// Language toggle functionality
+const languageToggles = [
+document.getElementById('language-toggle'),
+document.getElementById('mobile-language-toggle'),
+document.getElementById('menu-language-toggle')
+];
+const esElements = document.querySelectorAll('.language-es');
+const enElements = document.querySelectorAll('.language-en');
+languageToggles.forEach(toggle => {
+if (toggle) {
+toggle.addEventListener('change', function() {
+const isEnglish = this.checked;
+// Sync all toggles
+languageToggles.forEach(t => {
+if (t && t !== this) {
+t.checked = isEnglish;
+}
+});
+// Toggle language elements
+esElements.forEach(el => {
+el.classList.toggle('hidden', isEnglish);
+});
+enElements.forEach(el => {
+el.classList.toggle('hidden', !isEnglish);
+});
+});
+}
+});
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+const headerHeight = document.querySelector('header').offsetHeight;
+const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+window.scrollTo({
+top: targetPosition,
+behavior: 'smooth'
+});
+}
+});
+});
+// Animate elements on scroll
+const animateElements = document.querySelectorAll('.slide-up, .fade-in');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.style.opacity = '1';
+entry.target.style.transform = 'translateY(0)';
+}
+});
+}, { threshold: 0.1 });
+animateElements.forEach(el => {
+el.style.opacity = '0';
+el.style.transform = 'translateY(30px)';
+el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+observer.observe(el);
+});
+// Active nav link highlighting
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(section => {
+const sectionTop = section.offsetTop;
+const sectionHeight = section.clientHeight;
+if (pageYOffset >= (sectionTop - 200)) {
+current = section.getAttribute('id');
+}
+});
+navLinks.forEach(link => {
+link.classList.remove('active');
+if (link.getAttribute('href') === `#${current}`) {
+link.classList.add('active');
+}
+});
+});
+});
+</script>
+</body>
+</html>
