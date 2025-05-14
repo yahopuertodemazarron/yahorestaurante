@@ -105,29 +105,46 @@ transform: translateY(0);
 </style>
 </head>
 <body class="bg-white text-gray-800">
-<!-- Header -->
+
+
 <header class="fixed w-full bg-white shadow-sm z-50">
-<div class="container mx-auto px-4 py-2 flex justify-between items-center">
-<div class="flex items-center">
-   <div class="text-3xl font-semibold text-black mr-2 uppercase">YAHO</div>
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+        <div class="flex items-center">
+            <div class="text-3xl font-semibold text-black mr-2 uppercase">YAHO</div>
             <img src="logo.png" alt="Yaho Logo" class="h-8">
         </div>
-</div>
-<!-- Desktop Navigation -->
-<nav class="hidden md:flex items-center space-x-8">
-<a href="#home" class="nav-link text-gray-800 hover:text-primary transition-all">Inicio / Home</a>
-<a href="#menu" class="nav-link text-gray-800 hover:text-primary transition-all">Menú / Menu</a>
-<a href="#contact" class="nav-link text-gray-800 hover:text-primary transition-all">Contacto / Contact</a>
-</nav>
-<!-- Language Toggle -->
-<div class="hidden md:flex items-center language-toggle">
-<span class="mr-2 text-sm font-medium">ES</span>
-<label class="relative inline-block w-12 h-6">
-<input type="checkbox" class="opacity-0 w-0 h-0" id="language-toggle">
-<span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
-</label>
-<span class="ml-2 text-sm font-medium">EN</span>
-</div>
+        <nav class="hidden md:flex items-center space-x-8">
+            <a href="#home" class="nav-link text-gray-800 hover:text-primary transition-all uppercase">INICIO / HOME</a>
+            <a href="#menu" class="nav-link text-gray-800 hover:text-primary transition-all uppercase active">MENÚ / MENU</a>
+            <a href="#contact" class="nav-link text-gray-800 hover:text-primary transition-all uppercase">CONTACTO / CONTACT</a>
+        </nav>
+        <div class="hidden md:flex items-center language-toggle uppercase">
+            <span class="mr-2 text-sm font-medium">ES</span>
+            <label class="relative inline-block w-12 h-6">
+                <input type="checkbox" class="opacity-0 w-0 h-0" id="language-toggle">
+                <span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
+            </label>
+            <span class="ml-2 text-sm font-medium">EN</span>
+        </div>
+        <button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
+            <i class="ri-menu-line text-2xl text-primary"></i>
+        </button>
+    </div>
+    <div class="mobile-menu absolute top-full left-0 w-full bg-white shadow-md md:hidden" id="mobile-menu">
+        <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <a href="#home" class="text-gray-800 hover:text-primary py-2 transition-all uppercase">INICIO / HOME</a>
+            <a href="#menu" class="text-gray-800 hover:text-primary py-2 transition-all uppercase active">MENÚ / MENU</a>
+            <a href="#contact" class="text-gray-800 hover:text-primary py-2 transition-all uppercase">CONTACTO / CONTACT</a>
+            <div class="flex items-center language-toggle py-2 uppercase">
+                <span class="mr-2 text-sm font-medium">ES</span>
+                <label class="relative inline-block w-12 h-6">
+                    <input type="checkbox" class="opacity-0 w-0 h-0" id="mobile-language-toggle">
+                    <span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
+                </label>
+                <span class="ml-2 text-sm font-medium">EN</span>
+            </div>
+        </div>
+        </div>
 <!-- Mobile Menu Button -->
 <button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
 <i class="ri-menu-line text-2xl text-primary"></i>
