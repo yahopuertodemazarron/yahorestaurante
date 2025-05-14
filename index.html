@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yaho - Restaurante Chino</title>
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 <script>tailwind.config={theme:{extend:{colors:{primary:'#6000c8',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -145,27 +147,6 @@ transform: translateY(0);
             </div>
         </div>
         </div>
-<!-- Mobile Menu Button -->
-<button class="md:hidden flex items-center justify-center w-10 h-10" id="mobile-menu-button">
-<i class="ri-menu-line text-2xl text-primary"></i>
-</button>
-</div>
-<!-- Mobile Menu -->
-<div class="mobile-menu absolute top-full left-0 w-full bg-white shadow-md md:hidden" id="mobile-menu">
-<div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-<a href="#home" class="text-gray-800 hover:text-primary py-2 transition-all">Inicio / Home</a>
-<a href="#menu" class="text-gray-800 hover:text-primary py-2 transition-all">Menú / Menu</a>
-<a href="#contact" class="text-gray-800 hover:text-primary py-2 transition-all">Contacto / Contact</a>
-<div class="flex items-center language-toggle py-2">
-<span class="mr-2 text-sm font-medium">ES</span>
-<label class="relative inline-block w-12 h-6">
-<input type="checkbox" class="opacity-0 w-0 h-0" id="mobile-language-toggle">
-<span class="toggle-slider absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300 before:absolute before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300"></span>
-</label>
-<span class="ml-2 text-sm font-medium">EN</span>
-</div>
-</div>
-</div>
 </header>
 <!-- Hero Section -->
 <section id="home" class="hero-section min-h-[50vh] flex items-center justify-center text-white pt-16">
@@ -504,81 +485,54 @@ transform: translateY(0);
 </div>
 </div>
 </section>
-<!-- Gallery Section -->
-<section class="py-16 bg-white overflow-hidden">
-    <div class="container mx-auto px-4 mb-10 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">
-            <span class="language-es">Nuestra Galería</span>
-            <span class="language-en hidden">Our Gallery</span>
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            <span class="language-es">Descubre la experiencia Yaho a través de nuestras imágenes</span>
-            <span class="language-en hidden">Discover the Yaho experience through our images</span>
-        </p>
+<!-- Gallery Section con Swiper -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4 mb-10 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-primary">
+      <span class="language-es">Nuestra Galería</span>
+      <span class="language-en hidden">Our Gallery</span>
+    </h2>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+      <span class="language-es">Descubre la experiencia Yaho a través de nuestras imágenes</span>
+      <span class="language-en hidden">Discover the Yaho experience through our images</span>
+    </p>
+  </div>
+
+  <div class="swiper mySwiper w-full">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="celdo.png" alt="Cerdo" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="gamba.png" alt="Gamba" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="keso.png" alt="Queso" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="limon.png" alt="Limón" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="pato.png" alt="Pato" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="pollo.png" alt="Pollo" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="sushi.png" alt="Sushi" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="susi.png" alt="Susi" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
+      <div class="swiper-slide">
+        <img src="susi1.png" alt="Susi 1" class="w-full h-64 object-cover rounded shadow-lg" />
+      </div>
     </div>
-    <div class="relative w-full">
-        <div class="flex gallery-scroll" style="width: 700%">
-            <div class="flex-none w-1/2 flex space-x-4 px-4">
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="celdo.png" alt="Cerdo" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="gamba.png" alt="Gamba" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="keso.png" alt="Queso" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="limon.png" alt="Limon" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="pato.png" alt="Pato" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="pollo.png" alt="Pollo" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="sushi.png" alt="Sushi" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="susi.png" alt="Susi" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="susi1.png" alt="Susi 1" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-            </div>
-            <div class="flex-none w-1/2 flex space-x-4 px-4">
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="celdo.png" alt="Cerdo" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="gamba.png" alt="Gamba" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="keso.png" alt="Queso" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="limon.png" alt="Limon" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="pato.png" alt="Pato" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="pollo.png" alt="Pollo" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="sushi.png" alt="Sushi" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="susi.png" alt="Susi" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-                <div class="w-full sm:w-1/2 md:w-1/3 flex-none">
-                    <img src="susi1.png" alt="Susi 1" class="w-full h-64 object-cover rounded shadow-lg">
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Paginación opcional -->
+    <div class="swiper-pagination mt-4"></div>
+  </div>
 </section>
+
 <!-- Contact Section -->
 <section id="contact" class="py-20 bg-gray-50">
 <div class="container mx-auto px-4">
@@ -805,5 +759,23 @@ link.classList.add('active');
 });
 });
 </script>
+    <!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+  new Swiper('.mySwiper', {
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    slidesPerView: 1,
+    spaceBetween: 16,
+  });
+</script>
+
 </body>
 </html>
