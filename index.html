@@ -791,6 +791,30 @@ link.classList.add('active');
     spaceBetween: 16,
   });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Menú hamburguesa
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuToggle.addEventListener('click', function () {
+    mobileMenu.classList.toggle('hidden');
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    menuToggle.innerHTML = isOpen
+      ? '<i class="ri-close-line ri-xl"></i>'
+      : '<i class="ri-menu-line ri-xl"></i>';
+  });
+
+  // Cierra el menú móvil al hacer clic en un enlace
+  const mobileLinks = mobileMenu.querySelectorAll('a');
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuToggle.innerHTML = '<i class="ri-menu-line ri-xl"></i>';
+    });
+  });
+});
+</script>
 
 </body>
 </html>
